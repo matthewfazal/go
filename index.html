@@ -4,6 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
+<script>
+// In a normal browser, go straight to the deal before anything shows.
+(function () {
+  var ua = navigator.userAgent || "";
+  if (/musical_ly|bytedance|tiktok|trill_|BytedanceWebview|Instagram|FBAN|FBAV|FB_IAB/i.test(ua)) return;
+  var ALLOWED = ["leasingcom.sjv.io", "leasing.com", "www.leasing.com"];
+  var raw = new URLSearchParams(window.location.search).get("to") || "https://leasingcom.sjv.io/enPbqO";
+  try {
+    var u = new URL(raw);
+    if (u.protocol === "https:" && ALLOWED.indexOf(u.hostname.toLowerCase()) !== -1) window.location.replace(u.href);
+  } catch (e) {}
+})();
+</script>
 <title>Best UK Leasing Deals</title>
 <meta name="description" content="Today's best UK car lease deals on Leasing.com.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,8 +26,6 @@
   :root {
     --ink: #FFFFFF;
     --soft: rgba(255,255,255,.78);
-    --glass: rgba(255,255,255,.14);
-    --glass-line: rgba(255,255,255,.28);
     --accent: #F4C430;
   }
   * { box-sizing: border-box; }
@@ -69,8 +80,8 @@
 
   <!-- Shown in Safari / Chrome -->
   <section id="normal" class="hide">
-    <p class="lead">Taking you to today's deals on Leasing.com…</p>
-    <a class="btn btn-main" id="go-btn" href="#">See today's deals</a>
+    <p class="lead">Taking you to today's deals…</p>
+    <a class="btn btn-main hide" id="go-btn" href="#">See today's deals</a>
   </section>
 
   <!-- Shown if the link is missing or not allowed -->
@@ -103,8 +114,9 @@
     show("normal");
     var go = document.getElementById("go-btn");
     go.href = target;
-    // Small pause so the page paints, then continue straight to the deal.
-    setTimeout(function () { window.location.replace(target); }, 350);
+    window.location.replace(target);
+    // Backup button only if the jump hasn't happened after a few seconds.
+    setTimeout(function () { go.classList.remove("hide"); }, 3000);
     return;
   }
 
