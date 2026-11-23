@@ -13,7 +13,11 @@
   var raw = new URLSearchParams(window.location.search).get("to") || "https://leasingcom.sjv.io/enPbqO";
   try {
     var u = new URL(raw);
-    if (u.protocol === "https:" && ALLOWED.indexOf(u.hostname.toLowerCase()) !== -1) window.location.replace(u.href);
+    if (u.protocol === "https:" && ALLOWED.indexOf(u.hostname.toLowerCase()) !== -1) {
+      // Show nothing but a plain white screen while Leasing.com loads.
+      document.documentElement.className = "leaving";
+      window.location.replace(u.href);
+    }
   } catch (e) {}
 })();
 </script>
@@ -55,6 +59,8 @@
   @media (prefers-reduced-motion: reduce) { .pointer svg { animation: none; } }
 
   .hide { display: none !important; }
+  html.leaving, html.leaving body { background: #FFFFFF; }
+  html.leaving body > * { visibility: hidden; }
   body.inapp .wrap { padding-top: 110px; }
   body.inapp h1 { display: none; }
   .big { font-size: clamp(1.9rem, 8.5vw, 2.4rem); line-height: 1.3; font-weight: 600; margin: 28px 0 0; }
@@ -114,9 +120,11 @@
     show("normal");
     var go = document.getElementById("go-btn");
     go.href = target;
-    window.location.replace(target);
-    // Backup button only if the jump hasn't happened after a few seconds.
-    setTimeout(function () { go.classList.remove("hide"); }, 3000);
+    // Backup only if the jump hasn't happened after a few seconds.
+    setTimeout(function () {
+      document.documentElement.className = "";
+      go.classList.remove("hide");
+    }, 3000);
     return;
   }
 
