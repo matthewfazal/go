@@ -30,43 +30,32 @@
   .logo { display: block; width: 100%; max-width: 440px; height: auto; margin: 0 auto; }
   h1 { font-family: "Space Mono", ui-monospace, monospace; font-weight: 400; font-size: clamp(2rem, 9vw, 2.6rem); line-height: 1.1; margin: 4px 0 12px; letter-spacing: -.01em; }
   .lead { font-size: 1.1rem; line-height: 1.45; color: var(--soft); margin: 0 auto 26px; max-width: 26rem; }
-
-  .card { background: var(--glass); border: 1px solid var(--glass-line); border-radius: 26px; padding: 22px 18px; margin-bottom: 16px;
-    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
-  .card h2 { margin: 0 0 6px; font-size: 1.35rem; font-weight: 800; }
-  .card p { margin: 0; color: var(--soft); line-height: 1.45; }
-
-  .steps { list-style: none; padding: 0; margin: 18px 0 4px; text-align: left; display: grid; gap: 12px; }
-  .steps li { display: flex; align-items: center; gap: 12px; background: rgba(0,0,0,.22); border-radius: 16px; padding: 12px 14px; font-size: 1.05rem; line-height: 1.35; }
-  .num { flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--ink); color: #3B1450; display: grid; place-items: center; font-weight: 800; }
   .dots { display: inline-flex; gap: 3px; vertical-align: middle; background: var(--ink); border-radius: 999px; padding: 6px 9px; margin: 0 2px; }
   .dots i { width: 5px; height: 5px; border-radius: 50%; background: #1A0828; display: block; }
-
   .btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 58px; border-radius: 999px;
     border: 0; font: inherit; font-weight: 800; font-size: 1.08rem; cursor: pointer; text-decoration: none; margin-top: 12px; }
   .btn-main { background: var(--ink); color: #3B1450; box-shadow: 0 10px 28px rgba(0,0,0,.25); }
-  .btn-ghost { background: transparent; color: var(--ink); border: 2px solid var(--glass-line); }
   .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-  .note { font-size: .92rem; color: var(--soft); margin: 10px 0 0; min-height: 1.2em; }
 
   /* arrow pointing up to the in-app browser menu (top right) */
-  .pointer { position: fixed; top: 6px; right: 10px; z-index: 5; display: flex; flex-direction: column; align-items: flex-end; pointer-events: none; }
-  .pointer svg { width: 64px; height: 64px; animation: nudge 1.2s ease-in-out infinite; filter: drop-shadow(0 4px 10px rgba(0,0,0,.4)); }
-  .pointer span { background: var(--accent); color: #1A0828; font-weight: 800; font-size: .95rem; padding: 7px 12px; border-radius: 12px; margin-top: -4px; box-shadow: 0 6px 18px rgba(0,0,0,.3); }
+  .pointer { position: fixed; top: 6px; right: 10px; z-index: 5; pointer-events: none; }
+  .pointer svg { width: 96px; height: 96px; animation: nudge 1.2s ease-in-out infinite; filter: drop-shadow(0 4px 10px rgba(0,0,0,.4)); }
   @keyframes nudge { 0%,100% { transform: translate(0,0); } 50% { transform: translate(4px,-6px); } }
   @media (prefers-reduced-motion: reduce) { .pointer svg { animation: none; } }
 
   .hide { display: none !important; }
-  body.inapp .wrap { padding-top: 92px; }
-  .small { font-size: .85rem; color: var(--soft); margin-top: 22px; line-height: 1.5; }
-  .small a { color: var(--ink); }
+  body.inapp .wrap { padding-top: 110px; }
+  body.inapp h1 { display: none; }
+  .big { font-size: clamp(1.9rem, 8.5vw, 2.4rem); line-height: 1.3; font-weight: 600; margin: 28px 0 0; }
+  .big b { font-weight: 800; color: var(--accent); }
+  .big .dots { padding: 9px 13px; gap: 5px; vertical-align: 6px; }
+  .big .dots i { width: 8px; height: 8px; }
 </style>
 </head>
 <body>
 
 <div class="pointer hide" id="pointer" aria-hidden="true">
   <svg viewBox="0 0 64 64" fill="none" stroke="#F4C430" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 52 L48 16"/><path d="M26 14 H50 V38"/></svg>
-  <span>Tap here</span>
 </div>
 
 <main class="wrap">
@@ -75,23 +64,7 @@
 
   <!-- Shown inside TikTok / Instagram in-app browsers -->
   <section id="inapp" class="hide">
-    <p class="lead">One more tap and you're in. Open this page in your phone's browser to see today's deals and get your quote 👇</p>
-
-    <div class="card">
-      <h2 id="how-title">How to open it</h2>
-      <ol class="steps" id="steps-ios">
-        <li><span class="num">1</span><span>Tap <span class="dots" aria-label="the three dots"><i></i><i></i><i></i></span> in the top right corner</span></li>
-        <li><span class="num">2</span><span>Choose <b>"Open in browser"</b></span></li>
-        <li><span class="num">3</span><span>That's it! It takes you straight to today's deals</span></li>
-      </ol>
-
-      <a class="btn btn-main hide" id="android-btn" href="#">Open in Chrome</a>
-      <button class="btn btn-main hide" id="safari-btn" type="button">Open in Safari</button>
-      <button class="btn btn-ghost" id="copy-btn" type="button">Copy link instead</button>
-      <p class="note" id="copy-note" role="status" aria-live="polite"></p>
-    </div>
-
-    <p class="small">Why the extra step? Deals and quotes work best in your phone's own browser, so you see the full deal and your enquiry goes through properly.</p>
+    <p class="big">Tap <span class="dots" aria-label="the three dots"><i></i><i></i><i></i></span> then<br><b>Open in browser</b></p>
   </section>
 
   <!-- Shown in Safari / Chrome -->
@@ -125,8 +98,6 @@
 
   var ua = navigator.userAgent || "";
   var inApp = /musical_ly|bytedance|tiktok|trill_|BytedanceWebview|Instagram|FBAN|FBAV|FB_IAB/i.test(ua);
-  var isAndroid = /Android/i.test(ua);
-  var isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
   if (!inApp) {
     show("normal");
@@ -141,42 +112,6 @@
   show("inapp");
   show("pointer");
   document.body.classList.add("inapp");
-
-  if (isAndroid) {
-    var t = new URL(target);
-    var intent = "intent://" + t.host + t.pathname + t.search + t.hash +
-      "#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=" +
-      encodeURIComponent(window.location.href) + ";end";
-    var a = document.getElementById("android-btn");
-    a.href = intent;
-    a.classList.remove("hide");
-  } else if (isIOS) {
-    var s = document.getElementById("safari-btn");
-    s.classList.remove("hide");
-    s.addEventListener("click", function () {
-      // Works on newer iPhones in some apps; if TikTok blocks it, the steps above still work.
-      window.location.href = "x-safari-" + window.location.href;
-      setTimeout(function () {
-        document.getElementById("copy-note").textContent = "If Safari didn't open, use the 3 dots at the top right, or copy the link below.";
-      }, 1200);
-    });
-  }
-
-  var note = document.getElementById("copy-note");
-  document.getElementById("copy-btn").addEventListener("click", function () {
-    var link = window.location.href;
-    function done() { note.textContent = "Link copied ✅ Paste it into Safari or Chrome."; }
-    function fallback() {
-      var ta = document.createElement("textarea");
-      ta.value = link; ta.setAttribute("readonly", ""); ta.style.position = "absolute"; ta.style.left = "-9999px";
-      document.body.appendChild(ta); ta.select();
-      try { document.execCommand("copy"); done(); } catch (e) { note.textContent = "Copy this link: " + link; }
-      document.body.removeChild(ta);
-    }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(link).then(done, fallback);
-    } else { fallback(); }
-  });
 })();
 </script>
 </body>
